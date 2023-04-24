@@ -1,0 +1,36 @@
+<header class="navbar navbar-expand-md navbar-light fixed-top bg-light">
+  <div class="container-fluid">
+    <%= link_to "TESTTEST", root_path, class: "navbar-brand" %>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <% if user_signed_in? %>
+        <li class="nav-item"><%= link_to "TestLink", '#', class: "nav-link" %></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Account
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
+            <li><%= link_to "Test", '#', class: "dropdown-item" %></li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <%= link_to "Log out", logout_path, class: "dropdown-item",
+                data: { "turbo-method": :delete } %>
+            </li>
+          </ul>
+        </li>
+        <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        </form>
+        <% else %>
+        <li class="nav-item"><%= link_to "Sign up", register_path, class: "nav-link" %></li>
+        <li class="nav-item"><%= link_to "Log in", login_path, class: "nav-link" %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</header>
