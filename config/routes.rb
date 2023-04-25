@@ -9,5 +9,6 @@ Rails.application.routes.draw do
     get "login", to: "devise/sessions#new"
     get "register", to: "devise/registrations#new"
     delete "logout", to: "devise/sessions#destroy"
+    get "settings", to: "devise/registrations#edit"
   end
 end
