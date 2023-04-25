@@ -7,7 +7,9 @@ class User < ApplicationRecord
     :registerable,
     :recoverable,
     :rememberable,
-    :validatable
+    :validatable,
+    :omniauthable,
+    omniauth_providers: [:google]
 
   has_many :follower_relationships, foreign_key: :followed_id, class_name: "Relationship", dependent: :destroy
   has_many :followers, through: :follower_relationships, source: :follower
@@ -21,5 +23,13 @@ class User < ApplicationRecord
 
   def unfollow(user)
     following.delete(user)
+  end
+
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.id).first_or_create do |user|
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0, 20] # random password
+      # user.name = auth.info.name
+    end
   end
 end

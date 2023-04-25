@@ -438,7 +438,7 @@ Style/ClassEqualityComparison:
 
 Style/ClassMethodsDefinitions:
   EnforcedStyle: self_class
-  Enabled: true
+  Enabled: false
 
 Style/CollectionCompact:
   Enabled: false
