@@ -13,4 +13,6 @@ Rails.application.routes.draw do
   end
 
   get "users/:id", to: "users#show", as: "user"
+
+  resources :likes, only: [:create, :destroy]
 end

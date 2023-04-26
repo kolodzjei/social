@@ -18,3 +18,13 @@ Post.create(
   content: "First post from the seed file!",
   user_id: 1,
 )
+
+50.times do |n|
+  Post.create(
+    content: "This is post number #{n + 2} from the seed file!
+
+      #{Faker::Lorem.paragraph(sentence_count: rand(2..23))}
+    ",
+    user_id: rand(1..10),
+  )
+end

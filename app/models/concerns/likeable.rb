@@ -20,8 +20,6 @@ module Likeable
     likes.find_by(user: user).destroy if liked_by?(user)
   end
 
-  private
-
   def liked_by?(user)
     likers.include?(user)
   end
