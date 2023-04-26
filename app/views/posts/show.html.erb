@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3 border-end">
+      <div class="d-flex align-items-start">
+        <img src="https://via.placeholder.com/50" class="me-2" alt="User Avatar">
+        <div>
+          <h6><%= current_user.email %></h6>
+          <%= render "comments/form", commentable: @post %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 border-end">
+      <%= render @post %>
+
+      <h4>Comments</h4>
+      <% if !@comments.empty? %>
+        <% @comments.each do |comment| %>
+          <%= render comment %>
+        <% end %>
+        <%== pagy_bootstrap_nav(@pagy) %>
+      <% else %>
+        <p>No comments yet</p>
+      <% end %>
+    </div>
+    <div class="col-md-3">
+    </div>
+  </div>
+</div>

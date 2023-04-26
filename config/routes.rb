@@ -15,4 +15,6 @@ Rails.application.routes.draw do
   get "users/:id", to: "users#show", as: "user"
 
   resources :likes, only: [:create, :destroy]
+  resources :posts, only: [:create, :destroy, :show]
+  resources :comments, only: [:create, :destroy]
 end

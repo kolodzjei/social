@@ -7,16 +7,15 @@
           <img src="https://via.placeholder.com/50" class="me-2" alt="User Avatar">
           <div>
             <h6><%= current_user.email %></h6>
-            <form>
-              <textarea class="form-control mb-3" rows="3" placeholder="Write something..."></textarea>
+            <%= form_with model: @post do |f| %>
+              <%= f.text_area :content, class: "form-control mb-3", rows: "3", placeholder: "Write something..." %>
               <div class="d-flex justify-content-between">
                 <div class="input-group">
-                  <input type="file" class="form-control" id="inputGroupFile">
-                  <label class="input-group-text" for="inputGroupFile"><i class="bi bi-paperclip"></i></label>
+                  <%= f.file_field :image, accept: "image/jpeg, image/jpg, image/png", class: "form-control", id: "inputGroupFile" %>
                 </div>
-                <button type="submit" class="btn btn-primary">Post</button>
+                <%= f.submit "Post", class: "btn btn-primary" %>
               </div>
-            </form>
+            <% end %>
           </div>
         </div>
       </div>

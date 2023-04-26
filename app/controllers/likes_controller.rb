@@ -27,7 +27,7 @@ class LikesController < ApplicationController
   def update_likes_form
     render(turbo_stream:
       turbo_stream.replace(
-        "post_#{params[:likeable_id]}-likes",
+        "#{params[:likeable_type].downcase}_#{params[:likeable_id]}-likes",
         partial: "likes/like_form",
         locals: { model: @likeable },
       ))
