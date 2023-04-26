@@ -80,3 +80,5 @@ gem "omniauth-rails_csrf_protection"
 gem "bootstrap", "~> 5.2"
 
 gem "faker", "~> 3.2"
+
+gem "pagy", "~> 6.0"
