@@ -1,0 +1,13 @@
+<div class="container my-3 border-bottom">
+  <div class="d-flex align-items-center">
+    <img src="https://via.placeholder.com/50" class="rounded-circle me-3" alt="User Avatar">
+    <div>
+      <h5 class="card-title mb-0"><%= reply.user.email %></h5>
+      <p class="card-text"><small class="text-muted"><%= time_ago_in_words(reply.created_at) %> ago </small></p>
+    </div>
+    <div class="ms-auto">
+      <%= render 'likes/like_form', model: reply %>
+    </div>
+  </div>
+  <p class="my-2"><%= reply.content %></p>
+</div>

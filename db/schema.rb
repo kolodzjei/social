@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_25_191409) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_26_213811) do
   create_table "comments", force: :cascade do |t|
     t.integer("user_id", null: false)
     t.integer("post_id", null: false)
@@ -51,6 +51,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_25_191409) do
     t.index(["follower_id"], name: "index_relationships_on_follower_id")
   end
 
+  create_table "replies", force: :cascade do |t|
+    t.integer("comment_id", null: false)
+    t.integer("user_id", null: false)
+    t.text("content", null: false)
+    t.integer("parent_reply_id")
+    t.datetime("created_at", null: false)
+    t.datetime("updated_at", null: false)
+    t.index(["comment_id"], name: "index_replies_on_comment_id")
+    t.index(["parent_reply_id"], name: "index_replies_on_parent_reply_id")
+    t.index(["user_id"], name: "index_replies_on_user_id")
+  end
+
   create_table "users", force: :cascade do |t|
     t.string("email", default: "", null: false)
     t.string("encrypted_password", default: "", null: false)
@@ -71,4 +83,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_25_191409) do
   add_foreign_key "comments", "users"
   add_foreign_key "likes", "users"
   add_foreign_key "posts", "users"
+  add_foreign_key "replies", "comments"
+  add_foreign_key "replies", "replies", column: "parent_reply_id"
+  add_foreign_key "replies", "users"
 end

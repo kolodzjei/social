@@ -21,6 +21,8 @@ class User < ApplicationRecord
 
   has_many :comments, dependent: :destroy
 
+  has_many :replies, dependent: :destroy
+
   def follow(user)
     following << user unless following.include?(user) || user == self
   end

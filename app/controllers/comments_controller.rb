@@ -3,6 +3,12 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
 
+  def show
+    @comment = Comment.includes(:likers, :likes, :replies, :post).find_by(id: params[:id])
+    @pagy, @replies = pagy(@comment.replies.includes(:user, :likers, :likes).order(created_at: :desc), items: 10)
+    @reply = Reply.new
+  end
+
   def create
     @comment = Comment.new(comment_params)
     @comment.user = current_user

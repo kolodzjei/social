@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3 border-end">
+      <div class="d-flex align-items-start">
+        <img src="https://via.placeholder.com/50" class="me-2" alt="User Avatar">
+        <div>
+          <h6><%= current_user.email %></h6>
+          <%= render "replies/form", comment: @comment, replying_to: nil %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 border-end">
+      <%= render @comment.post %>
+      <h4>Comment</h4>
+      <%= render @comment %>
+
+      <h4>Replies</h4>
+      <% if !@replies.empty? %>
+        <% @replies.each do |reply| %>
+          <%= render reply %>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="col-md-3">
+    </div>
+  </div>
+</div>

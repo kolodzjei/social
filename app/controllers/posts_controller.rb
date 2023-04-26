@@ -4,8 +4,8 @@ class PostsController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    @post = Post.find_by(id: params[:id])
-    @pagy, @comments = pagy(@post.comments.includes(:user).order(created_at: :desc), items: 10)
+    @post = Post.includes(:likes, :likers, :user).find_by(id: params[:id])
+    @pagy, @comments = pagy(@post.comments.includes(:user, :likes, :likers, :replies).order(created_at: :desc), items: 10)
     @comment = Comment.new
   end
 
