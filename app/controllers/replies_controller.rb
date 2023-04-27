@@ -6,7 +6,7 @@ class RepliesController < ApplicationController
   def create
     @reply = Reply.new(reply_params)
     @reply.user = current_user
-    
+
     if @reply.save
       flash[:success] = "Reply was successfully created."
     else

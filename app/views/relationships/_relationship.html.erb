@@ -1,0 +1,23 @@
+<%= turbo_frame_tag "follow" do %>
+<div class="card mt-3">
+  <div class="card-body">
+    <div class="row">
+      <div class="col text-center border-end">
+        <h3><%= user.followers.length %></h3>
+        <p>Followers</p>
+      </div>
+      <div class="col text-center">
+        <h3><%= user.following.length %></h3>
+        <p>Following</p>
+      </div>
+    </div>
+    <% unless current_user == user %>
+    <div class="row mt-3">
+      <div class="col text-center">
+        <%= render 'relationships/form', user: user %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
+<% end %>

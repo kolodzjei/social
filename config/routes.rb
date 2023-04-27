@@ -18,4 +18,6 @@ Rails.application.routes.draw do
   resources :posts, only: [:create, :destroy, :show]
   resources :comments, only: [:create, :destroy, :show]
   resources :replies, only: [:create]
+  post "follow", to: "relationships#create", as: "follow"
+  delete "unfollow", to: "relationships#destroy", as: "unfollow"
 end

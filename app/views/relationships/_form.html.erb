@@ -1,0 +1,9 @@
+<% if current_user.following?(user) %>
+  <%= link_to unfollow_path(user_id: user.id), data: {"turbo-method": :delete}, style:"color:black;text-decoration:none" do %>
+    <button class="btn btn-primary">Unfollow</button>
+  <% end %>
+<% else %>
+  <%= link_to follow_path(user_id: user.id), data: {"turbo-method": :post}, style:"color:black;text-decoration:none" do %>
+    <button class="btn btn-primary">Follow</button>
+  <% end %>
+<% end %>
