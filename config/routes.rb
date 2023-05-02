@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   end
 
   get "users/:id", to: "users#show", as: "user"
+  get "users/:id/followers", to: "users#followers", as: "followers"
+  get "users/:id/following", to: "users#following", as: "following"
 
   resources :likes, only: [:create, :destroy]
   resources :posts, only: [:create, :destroy, :show]

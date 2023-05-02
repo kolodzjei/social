@@ -1,0 +1,7 @@
+<%= turbo_stream.update "follow-form" do %>
+  <%= render partial: "relationships/form", locals: {user: @user } %>
+<% end %>
+
+<%= turbo_stream.update "followers" do %>
+ <h3><%= @user.followers.length %></h3>
+<% end %>

@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3 border-end">
+      <%= render 'users/profile_info', user: user %>
+    </div>
+    <div class="col-md-6 border-end">
+        <h4><%= yield(:header) %></h4>
+        <% if !list.empty? %>
+          <% list.each do |user| %>
+            <%= render 'users/user_card', user: user %>
+          <% end %>
+          <%== pagy_bootstrap_nav(pagy) %>
+        <% else %>
+          <p>No <%= yield(:header).downcase %> yet</p>
+        <% end %>
+    <div class="col-md-3">
+    </div>
+  </div>
+</div>

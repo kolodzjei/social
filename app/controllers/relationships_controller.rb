@@ -6,12 +6,18 @@ class RelationshipsController < ApplicationController
 
   def create
     current_user.follow(@user)
-    update_relationship_partial
+    respond_to do |format|
+      format.html { redirect_back(fallback_location: user_path(@user)) }
+      format.turbo_stream
+    end
   end
 
   def destroy
     current_user.unfollow(@user)
-    update_relationship_partial
+    respond_to do |format|
+      format.html { redirect_back(fallback_location: user_path(@user)) }
+      format.turbo_stream
+    end
   end
 
   private
@@ -22,14 +28,5 @@ class RelationshipsController < ApplicationController
       flash[:alert] = "Unable to find user with id #{params[:user_id]}"
       redirect_back(fallback_location: root_path)
     end
-  end
-
-  def update_relationship_partial
-    render(turbo_stream:
-      turbo_stream.replace(
-        "follow",
-        partial: "relationships/relationship",
-        locals: { user: @user },
-      ))
   end
 end

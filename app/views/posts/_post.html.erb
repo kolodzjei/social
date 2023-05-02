@@ -16,6 +16,6 @@
           <%= render 'likes/like_form', model: post %>
       </div>
     </div>
-    <p class="card-text"><%= post.content %></p>
+    <p class="card-text"><%= simple_format(post.content) %></p>
   </div>
 </div>

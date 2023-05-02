@@ -1,22 +1,16 @@
 <div class="container">
   <div class="row">
     <div class="col-md-3 border-end">
-      <div class="d-flex align-items-start">
-        <img src="https://via.placeholder.com/50" class="me-2" alt="User Avatar">
-        <div>
-          <h6><%= @user.email %></h6>
-        </div>
-      </div>
-      <%= render "relationships/relationship", user: @user %>
+      <%= render 'users/profile_info', user: @user %>
     </div>
     <div class="col-md-6 border-end">
-      <h4>Posts</h4>
-      <% if !@posts.empty? %>
-        <%= render @posts %>
-        <%== pagy_bootstrap_nav(@pagy) %>
-      <% else %>
-        <p>No posts yet</p>
-      <% end %>
+        <h4>Posts</h4>
+        <% if !@posts.empty? %>
+          <%= render @posts %>
+          <%== pagy_bootstrap_nav(@pagy) %>
+        <% else %>
+          <p>No posts yet</p>
+        <% end %>
     <div class="col-md-3">
     </div>
   </div>
