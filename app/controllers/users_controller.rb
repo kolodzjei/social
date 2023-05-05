@@ -13,7 +13,7 @@ class UsersController < ApplicationController
     @pagy, @followers = pagy(@user.followers, items: 10)
 
     respond_to do |format|
-      format.html { render :followers }
+      format.html { render(:followers) }
     end
   end
 
@@ -21,10 +21,8 @@ class UsersController < ApplicationController
     @user = User.includes(:following).find_by(id: params[:id])
     @pagy, @following = pagy(@user.following, items: 10)
 
-
     respond_to do |format|
-      format.html { render :following }
+      format.html { render(:following) }
     end
   end
-
 end

@@ -4,7 +4,7 @@
       <div class="col-md-3 border-end">
         <!-- Left section -->
         <div class="d-flex align-items-start">
-          <img src="https://via.placeholder.com/50" class="me-2" alt="User Avatar">
+          <%= image_tag current_user.avatar.variant(:thumb), class: "rounded-circle me-3", alt: "User Avatar" %>
           <div>
             <h6><%= link_to(current_user.email, user_path(current_user), style:"color:black;text-decoration:none") %></h6>
             <%= form_with model: @post do |f| %>

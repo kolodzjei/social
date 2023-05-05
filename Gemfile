@@ -85,3 +85,6 @@ gem "bootstrap", "~> 5.2"
 gem "faker", "~> 3.2"
 
 gem "pagy", "~> 6.0"
+
+gem "image_processing", "~> 1.12"
+gem "active_storage_validations", "~> 1.0"
