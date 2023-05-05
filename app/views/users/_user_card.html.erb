@@ -1,6 +1,6 @@
 <div class="card mb-3">
   <div class="d-flex align-items-center p-1">
     <%= image_tag user.avatar.variant(:thumb), class: "rounded-circle me-3", alt: "User Avatar" %>
-    <h6 style="margin: 0"><%= link_to(user.email, user_path(user), style:"color:black;text-decoration:none") %></h6>
+    <h6 style="margin: 0"><%= link_to(display_name(user), user_path(user), style:"color:black;text-decoration:none") %></h6>
   </div>
 </div>

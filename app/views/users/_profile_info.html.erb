@@ -1,7 +1,7 @@
 <div class="d-flex align-items-start">
   <%= image_tag user.avatar.variant(:thumb), class: "rounded-circle me-3", alt: "User Avatar" %>
   <div>
-    <h6><%= link_to(user.email, user_path(user)) %></h6>
+    <h6><%= link_to display_name(user), user_path(user) %></h6>
   </div>
 </div>
 <%= render "relationships/relationship", user: user %>

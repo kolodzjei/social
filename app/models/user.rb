@@ -36,6 +36,8 @@ class User < ApplicationRecord
     content_type: { in: ["image/png", "image/jpg", "image/jpeg"], message: "must be a valid image format" },
     size: { less_than: 5.megabytes, message: "should be less than 5MB" }
 
+  validates :display_name, length: { maximum: 15, minimum: 3 }
+
   def follow(user)
     following << user unless following.include?(user) || user == self
   end
@@ -56,7 +58,7 @@ class User < ApplicationRecord
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20] # random password
-      # user.name = auth.info.name
+      user.display_name = auth.info.name
     end
   end
 

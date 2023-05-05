@@ -4,7 +4,7 @@
       <div class="d-flex align-items-start">
         <%= image_tag current_user.avatar.variant(:thumb), class: "rounded-circle me-3", alt: "User Avatar" %>
         <div>
-          <h6><%= current_user.email %></h6>
+          <h6><%= display_name(current_user) %></h6>
           <%= render "comments/form", commentable: @post %>
         </div>
       </div>
