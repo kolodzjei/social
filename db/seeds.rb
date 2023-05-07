@@ -15,7 +15,7 @@ User.create(
   u.avatar.attach(
     io: File.open(
       Rails.root.join(
-        "app", "assets", "images", "mockup_avatars", "#{n+1}.jpg"
+        "app", "assets", "images", "mockup_avatars", "#{n + 1}.jpg"
       ),
     ),
     filename: "#{n}.png",
