@@ -70,4 +70,18 @@ RSpec.describe(User, type: :model) do
       expect(u.following?(u2)).to(be(false))
     end
   end
+
+  context "#from_omniauth" do
+    it "should create a new user if it does not exist" do
+      auth = OmniAuth::AuthHash.new(Faker::Omniauth.google)
+      expect { User.from_omniauth(auth) }.to(change { User.count }.by(1))
+    end
+
+    it "should return the user if it exists" do
+      auth = OmniAuth::AuthHash.new(Faker::Omniauth.google)
+      User.from_omniauth(auth)
+      expect { User.from_omniauth(auth) }.to_not(change { User.count })
+      expect(User.from_omniauth(auth)).to(eq(User.last))
+    end
+  end
 end
