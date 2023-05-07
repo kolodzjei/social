@@ -9,6 +9,8 @@ class Reply < ApplicationRecord
   belongs_to :parent_reply, class_name: "Reply", optional: true
   has_many :replies, class_name: "Reply", foreign_key: "parent_reply_id", dependent: :destroy
 
-  validates :content, presence: true, length: { maximum: 100 }
+  has_rich_text :content
+
+  validates :content, presence: true, length: { maximum: 500 }
   validates :user_id, :comment_id, presence: true
 end

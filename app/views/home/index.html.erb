@@ -1,3 +1,4 @@
+<%= render 'shared/trix_helper' %>
 <% if user_signed_in? %>
   <div class="container">
     <div class="row">
@@ -5,14 +6,13 @@
         <!-- Left section -->
         <div class="d-flex align-items-start">
           <%= image_tag current_user.avatar.variant(:thumb), class: "rounded-circle me-3", alt: "User Avatar" %>
-          <div>
+          <div class="w-100">
             <h6><%= link_to( display_name(current_user), user_path(current_user), style:"color:black;text-decoration:none") %></h6>
             <%= form_with model: @post do |f| %>
-              <%= f.text_area :content, class: "form-control mb-3", rows: "3", placeholder: "Write something..." %>
+              <%= f.rich_text_area :content, class: "form-control mb-3", rows: "3", placeholder: "Write something...", data: { controller: 'trix' } %>
               <div class="d-flex justify-content-between">
-                <div class="input-group">
-                  <%= f.file_field :image, accept: "image/jpeg, image/jpg, image/png", class: "form-control", id: "inputGroupFile" %>
-                </div>
+                
+                
                 <%= f.submit "Post", class: "btn btn-primary" %>
               </div>
             <% end %>

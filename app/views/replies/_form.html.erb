@@ -1,3 +1,5 @@
+<%= render 'shared/trix_helper' %>
+
 <%= form_with model: @reply do |f| %>
 
   <% if params[:parent_reply_id] %>
@@ -6,7 +8,7 @@
 
   <%= f.hidden_field :comment_id, value: comment.id %>
 
-  <%= f.text_area :content, class: "form-control mb-3", rows: "3", placeholder: "Write something..." %>
+  <%= f.rich_text_area :content, class: "form-control mb-3", rows: "3", placeholder: "Write something..." %>
   <div class="d-flex justify-content-end">
     <%= f.submit "Reply", class: "btn btn-primary" %>
   </div>

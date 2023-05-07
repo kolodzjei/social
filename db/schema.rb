@@ -12,7 +12,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_05_232749) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_07_000350) do
+  create_table "action_text_rich_texts", force: :cascade do |t|
+    t.string("name", null: false)
+    t.text("body")
+    t.string("record_type", null: false)
+    t.bigint("record_id", null: false)
+    t.datetime("created_at", null: false)
+    t.datetime("updated_at", null: false)
+    t.index(["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true)
+  end
+
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string("name", null: false)
     t.string("record_type", null: false)
@@ -48,7 +58,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_05_232749) do
   create_table "comments", force: :cascade do |t|
     t.integer("user_id", null: false)
     t.integer("post_id", null: false)
-    t.text("content", default: "", null: false)
     t.datetime("created_at", null: false)
     t.datetime("updated_at", null: false)
     t.index(["post_id"], name: "index_comments_on_post_id")
@@ -66,7 +75,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_05_232749) do
   end
 
   create_table "posts", force: :cascade do |t|
-    t.text("content", default: "", null: false)
     t.integer("user_id", null: false)
     t.datetime("created_at", null: false)
     t.datetime("updated_at", null: false)
@@ -86,7 +94,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_05_232749) do
   create_table "replies", force: :cascade do |t|
     t.integer("comment_id", null: false)
     t.integer("user_id", null: false)
-    t.text("content", null: false)
     t.integer("parent_reply_id")
     t.datetime("created_at", null: false)
     t.datetime("updated_at", null: false)

@@ -1,6 +1,8 @@
+<%= render 'shared/trix_helper' %>
+
 <%= form_with model: @comment do |f| %>
   <%= f.hidden_field :post_id, value: commentable.id %>
-  <%= f.text_area :content, class: "form-control mb-3", rows: "3", placeholder: "Write something..." %>
+  <%= f.rich_text_area :content, class: "form-control mb-3", rows: "3", placeholder: "Write something..." %>
   <div class="d-flex justify-content-end">
     <%= f.submit "Comment", class: "btn btn-primary" %>
   </div>

@@ -8,6 +8,8 @@ class Comment < ApplicationRecord
 
   has_many :replies, dependent: :destroy
 
-  validates :content, presence: true, length: { maximum: 100 }
+  has_rich_text :content
+
+  validates :content, presence: true, length: { maximum: 500 }
   validates :user_id, :post_id, presence: true
 end

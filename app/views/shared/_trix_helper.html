@@ -1,0 +1,16 @@
+<script type="text/javascript">
+  (function() {
+    addEventListener("trix-initialize", function(e) {
+      const file_tools = document.querySelector(".trix-button-group--file-tools");
+      const block_tools = document.querySelector(".trix-button-group--block-tools");
+      const history_tools = document.querySelector(".trix-button-group--history-tools");
+
+      file_tools.remove();
+      block_tools.remove();
+      history_tools.remove();
+    })
+    addEventListener("trix-file-accept", function(e) {
+      e.preventDefault();
+    })
+  })();
+</script>

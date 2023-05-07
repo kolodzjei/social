@@ -333,7 +333,7 @@ DEPENDENCIES
   devise (~> 4.9)
   factory_bot_rails
   faker (~> 3.2)
-  image_processing (~> 1.12)
+  image_processing
   importmap-rails
   jbuilder
   omniauth-google-oauth2
