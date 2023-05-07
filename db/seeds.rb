@@ -7,11 +7,22 @@ User.create(
 )
 
 9.times do |n|
-  User.create(
+  u = User.new(
     email: "user-#{n + 1}@example.com",
     password: "foobar",
     password_confirmation: "foobar",
   )
+  u.avatar.attach(
+    io: File.open(
+      Rails.root.join(
+        "app", "assets", "images", "mockup_avatars", "#{n+1}.jpg"
+      ),
+    ),
+    filename: "#{n}.png",
+    content_type: "image/jpg",
+  )
+  u.display_name = Faker::Name.first_name
+  u.save
 end
 
 Post.create(
