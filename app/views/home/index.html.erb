@@ -26,14 +26,15 @@
       </div>
       <div class="col-md-3">
         <!-- Right section -->
+
+        <% @following.each do |following|%>
         <div class="card mb-3">
           <div class="card-body d-flex align-items-start">
-            <img src="https://via.placeholder.com/50" class="me-2" alt="Friend Avatar">
-            <div>
-              <h6>Friend Email</h6>
-            </div>
+            <%= image_tag following.avatar.variant(:thumb), class: "me-2", alt: "Following Avatar" %>
+            <h6><%= link_to display_name(following), user_path(following) %></h6>
           </div>
         </div>
+        <% end %>
       </div>
     </div>
   </div>

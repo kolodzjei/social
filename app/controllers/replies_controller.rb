@@ -16,6 +16,17 @@ class RepliesController < ApplicationController
     redirect_to(@reply.comment)
   end
 
+  def destroy
+    @reply = Reply.find_by(id: params[:id])
+    if @reply.user == current_user
+      @reply.destroy
+      flash[:success] = "Reply was successfully deleted."
+    else
+      flash[:error] = "There was an error deleting your reply."
+    end
+    redirect_to(@reply.comment)
+  end
+
   private
 
   def reply_params

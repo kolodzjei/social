@@ -28,23 +28,25 @@
           <%= f.text_field :display_name, autocomplete: "display_name", class: "form-control", autofocus: true %>
         </div>
 
-        <div class="mb-3">
-          <%= f.label :password, class: "form-label" %> <i>(leave blank if you don't want to change it)</i>
-          <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
-          <% if @minimum_password_length %>
-            <small class="text-muted"><%= @minimum_password_length %> characters minimum</small>
-          <% end %>
-        </div>
+        <% if resource.provider.nil? %>
+          <div class="mb-3">
+            <%= f.label :password, class: "form-label" %> <i>(leave blank if you don't want to change it)</i>
+            <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+            <% if @minimum_password_length %>
+              <small class="text-muted"><%= @minimum_password_length %> characters minimum</small>
+            <% end %>
+          </div>
 
-        <div class="mb-3">
-          <%= f.label :password_confirmation, class: "form-label" %>
-          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
-        </div>
+          <div class="mb-3">
+            <%= f.label :password_confirmation, class: "form-label" %>
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+          </div>
 
-        <div class="mb-3">
-          <%= f.label :current_password, class: "form-label" %> <i>(we need your current password to confirm your new password)</i>
-          <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control" %>
-        </div>
+          <div class="mb-3">
+            <%= f.label :current_password, class: "form-label" %> <i>(we need your current password to confirm your new password)</i>
+            <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control" %>
+          </div>
+        <% end %>
 
         <div class="text-center">
           <%= f.submit "Update", class: "btn btn-primary" %>
