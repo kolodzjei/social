@@ -1,0 +1,13 @@
+<div data-controller="alert">
+<% if notice %>
+  <div class="alert alert-info alert-dismissible fade show m-5" data-target="alert.alert" role="alert">
+    <%= notice %>
+  </div>
+<% end %>
+
+<% if alert %>
+  <div class="alert alert-warning alert-dismissible fade show m-5" data-target="alert.alert" role="alert">
+    <%= alert %>
+  </div>
+<% end %>
+</div>
