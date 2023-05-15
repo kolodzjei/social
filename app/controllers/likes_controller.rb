@@ -6,6 +6,7 @@ class LikesController < ApplicationController
 
   def create
     @likeable.like(current_user)
+    send_notification
     update_likes_form
   end
 
@@ -31,5 +32,9 @@ class LikesController < ApplicationController
         partial: "likes/like_form",
         locals: { model: @likeable },
       ))
+  end
+
+  def send_notification
+    LikeNotifier.new(current_user, @likeable).notify
   end
 end

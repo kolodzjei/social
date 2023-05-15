@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_07_000350) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_12_180454) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string("name", null: false)
     t.text("body")
@@ -74,6 +74,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_07_000350) do
     t.index(["user_id"], name: "index_likes_on_user_id")
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.integer("user_id", null: false)
+    t.string("target_type", null: false)
+    t.integer("target_id", null: false)
+    t.boolean("read", default: false)
+    t.string("content", null: false)
+    t.integer("actor_id", null: false)
+    t.datetime("created_at", null: false)
+    t.datetime("updated_at", null: false)
+    t.index(["actor_id"], name: "index_notifications_on_actor_id")
+    t.index(["target_type", "target_id"], name: "index_notifications_on_target")
+    t.index(["user_id"], name: "index_notifications_on_user_id")
+  end
+
   create_table "posts", force: :cascade do |t|
     t.integer("user_id", null: false)
     t.datetime("created_at", null: false)
@@ -124,6 +138,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_07_000350) do
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
   add_foreign_key "likes", "users"
+  add_foreign_key "notifications", "users"
+  add_foreign_key "notifications", "users", column: "actor_id"
   add_foreign_key "posts", "users"
   add_foreign_key "replies", "comments"
   add_foreign_key "replies", "replies", column: "parent_reply_id"

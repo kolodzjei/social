@@ -23,6 +23,8 @@ class User < ApplicationRecord
 
   has_many :replies, dependent: :destroy
 
+  has_many :notifications, dependent: :destroy
+
   has_one_attached :avatar do |attachable|
     attachable.variant(:thumb, resize_and_pad: [50, 50])
     attachable.variant(:medium, resize_and_pad: [300, 300])
