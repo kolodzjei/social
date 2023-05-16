@@ -9,6 +9,8 @@ class LikeNotifier
   end
 
   def notify
+    return if likeable.user == user
+
     Notification.find_or_create_by(
       content: content,
       user: likeable.user,

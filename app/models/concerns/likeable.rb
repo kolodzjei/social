@@ -6,6 +6,7 @@ module Likeable
   included do
     has_many :likes, as: :likeable, dependent: :destroy
     has_many :likers, through: :likes, source: :user
+    has_many :notifications, as: :target, dependent: :destroy
   end
 
   def like_count

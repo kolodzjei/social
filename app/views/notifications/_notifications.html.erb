@@ -1,0 +1,11 @@
+<% @notifications.each do |notification| %>
+  <%= link_to polymorphic_path(notification.target), style:"color:black;text-decoration:none", class:"m-1" do %>
+    <div class="d-flex justify-content-center align-items-center p-2">
+      <%= image_tag notification.actor.avatar.variant(:thumb), class: "rounded-circle me-2", alt: "User Avatar" %>
+      <div class="w-100">
+        <h6><%= notification.message %></h6>
+        <small class="text-muted"><%= time_ago_in_words(notification.created_at) %> ago</small>
+      </div>
+    </div>
+  <% end %>
+<% end %>
