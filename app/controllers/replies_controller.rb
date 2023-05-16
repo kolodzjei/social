@@ -4,9 +4,12 @@ class RepliesController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    @reply = Reply.includes(:user,:replies, :rich_text_content, :likes, :likers).find_by(id: params[:id])
+    @reply = Reply.includes(:user, :replies, :rich_text_content, :likes, :likers).find_by(id: params[:id])
     @comment = @reply.comment
-    @pagy, @replies = pagy(@reply.replies.includes(:rich_text_content, :likes, :likers, :replies, :user).newest, items: 10)
+    @pagy, @replies = pagy(
+      @reply.replies.includes(:rich_text_content, :likes, :likers, :replies, :user).newest,
+      items: 10,
+    )
   end
 
   def create
