@@ -1,3 +1,11 @@
+<% def display_reply(reply) %>
+  <% if reply.has_parent? %>
+    <% display_reply(reply.parent_reply) %>
+  <% end %>
+  <%= render reply %>
+<% end %>
+
+
 <div class="container">
   <div class="row">
     <div class="col-md-3 border-end">
@@ -5,7 +13,7 @@
         <%= image_tag current_user.avatar.variant(:thumb), class: "rounded-circle me-3", alt: "User Avatar" %>
         <div>
           <h6><%= display_name(current_user) %></h6>
-          <%= render "replies/form", comment: @comment, replying_to: nil, reply: @reply %>
+          <%= render "replies/form", comment: @comment, replying_to: @reply, reply: Reply.new %>
         </div>
       </div>
     </div>
@@ -14,6 +22,10 @@
       <h4>Comment</h4>
       <%= render @comment %>
 
+
+      <h4>Reply</h4>
+      <% display_reply(@reply) %>
+      
       <h4>Replies</h4>
       <% if !@replies.empty? %>
         <% @replies.each do |reply| %>

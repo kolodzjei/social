@@ -12,4 +12,8 @@ class Comment < ApplicationRecord
 
   validates :content, presence: true, length: { maximum: 500 }
   validates :user_id, :post_id, presence: true
+
+  def replies_count
+    replies.not_reply.count
+  end
 end

@@ -3,6 +3,12 @@
 class RepliesController < ApplicationController
   before_action :authenticate_user!
 
+  def show
+    @reply = Reply.includes(:user,:replies, :rich_text_content, :likes, :likers).find_by(id: params[:id])
+    @comment = @reply.comment
+    @pagy, @replies = pagy(@reply.replies.includes(:rich_text_content, :likes, :likers, :replies, :user).newest, items: 10)
+  end
+
   def create
     @reply = Reply.new(reply_params)
     @reply.user = current_user
@@ -12,8 +18,7 @@ class RepliesController < ApplicationController
     else
       flash[:error] = "There was an error creating your reply."
     end
-
-    redirect_to(@reply.comment)
+    redirect
   end
 
   def destroy
@@ -24,12 +29,20 @@ class RepliesController < ApplicationController
     else
       flash[:error] = "There was an error deleting your reply."
     end
-    redirect_to(@reply.comment)
+    redirect
   end
 
   private
 
   def reply_params
     params.require(:reply).permit(:content, :parent_reply_id, :comment_id)
+  end
+
+  def redirect
+    if @reply.has_parent?
+      redirect_to(@reply.parent_reply)
+    else
+      redirect_to(@reply.comment)
+    end
   end
 end

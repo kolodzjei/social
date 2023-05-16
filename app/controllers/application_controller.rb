@@ -14,6 +14,6 @@ class ApplicationController < ActionController::Base
   end
 
   def load_notifications
-    @notifications = Notification.includes(:actor).where(user: current_user).order(created_at: :desc).limit(6)
+    @notifications = Notification.includes(:actor, :target).where(user: current_user).order(created_at: :desc).limit(6)
   end
 end

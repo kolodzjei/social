@@ -1,10 +1,8 @@
 <%= render 'shared/trix_helper' %>
 
-<%= form_with model: @reply do |f| %>
+<%= form_with model: reply do |f| %>
 
-  <% if params[:parent_reply_id] %>
-    <%= form.hidden_field :parent_reply_id, value: replying_to.id if replying_to %>
-  <% end %>
+  <%= f.hidden_field :parent_reply_id, value: replying_to.id if replying_to %>
 
   <%= f.hidden_field :comment_id, value: comment.id %>
 

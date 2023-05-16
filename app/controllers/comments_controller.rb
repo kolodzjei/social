@@ -4,8 +4,8 @@ class CommentsController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    @comment = Comment.includes(:likers, :likes, :replies, :post).find_by(id: params[:id])
-    @pagy, @replies = pagy(@comment.replies.includes(:user, :likers, :likes).order(created_at: :desc), items: 10)
+    @comment = Comment.includes(:likers, :likes, :replies, :post, :rich_text_content).find_by(id: params[:id])
+    @pagy, @replies = pagy(@comment.replies.not_reply.newest.includes(:user, :likers, :likes), items: 10)
     @reply = Reply.new
   end
 
