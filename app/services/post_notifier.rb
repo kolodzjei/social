@@ -20,7 +20,7 @@ class PostNotifier
   private
 
   attr_reader :actor, :post
-  
+
   def content
     "published a new post."
   end

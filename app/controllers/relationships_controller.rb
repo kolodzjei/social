@@ -6,6 +6,7 @@ class RelationshipsController < ApplicationController
 
   def create
     current_user.follow(@user)
+    send_notification
     respond_to do |format|
       format.html { redirect_back(fallback_location: user_path(@user)) }
       format.turbo_stream
@@ -28,5 +29,9 @@ class RelationshipsController < ApplicationController
       flash[:alert] = "Unable to find user with id #{params[:user_id]}"
       redirect_back(fallback_location: root_path)
     end
+  end
+
+  def send_notification
+    FollowNotifier.new(current_user, @user).notify
   end
 end
