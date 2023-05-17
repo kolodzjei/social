@@ -14,6 +14,7 @@ class CommentsController < ApplicationController
     @comment.user = current_user
 
     if @comment.save
+      send_notification
       flash[:notice] = "Comment created"
     else
       flash[:alert] = "Something went wrong"
@@ -36,5 +37,9 @@ class CommentsController < ApplicationController
 
   def comment_params
     params.require(:comment).permit(:content, :post_id)
+  end
+
+  def send_notification
+    CommentNotifier.new(current_user, @comment).notify
   end
 end

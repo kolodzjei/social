@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class LikeNotifier
-  include ApplicationHelper
-
   def initialize(user, likeable)
     @user = user
     @likeable = likeable

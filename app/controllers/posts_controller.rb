@@ -17,6 +17,7 @@ class PostsController < ApplicationController
     @post.user = current_user
 
     if @post.save
+      send_notification
       flash[:notice] = "Post created"
     else
       flash[:alert] = "Something went wrong"
@@ -39,5 +40,9 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:content)
+  end
+
+  def send_notification
+    PostNotifier.new(current_user, @post).notify_followers
   end
 end

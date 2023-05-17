@@ -17,6 +17,7 @@ class RepliesController < ApplicationController
     @reply.user = current_user
 
     if @reply.save
+      send_notification
       flash[:success] = "Reply was successfully created."
     else
       flash[:error] = "There was an error creating your reply."
@@ -47,5 +48,9 @@ class RepliesController < ApplicationController
     else
       redirect_to(@reply.comment)
     end
+  end
+
+  def send_notification
+    ReplyNotifier.new(current_user, @reply).notify
   end
 end
