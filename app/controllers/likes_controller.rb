@@ -21,7 +21,7 @@ class LikesController < ApplicationController
     @likeable = params[:likeable_type].classify.constantize.find_by(id: params[:likeable_id])
     unless @likeable
       flash[:alert] = "Unable to find #{params[:likeable_type]} with id #{params[:likeable_id]}"
-      redirect_to root_path
+      redirect_to(root_path)
     end
   end
 

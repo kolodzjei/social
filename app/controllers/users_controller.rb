@@ -5,11 +5,15 @@ class UsersController < ApplicationController
 
   def show
     @user = User.includes(:followers, :following).find_by(id: params[:id])
+    return redirect_to(root_path, alert: "User not found") unless @user
+
     @pagy, @posts = pagy(@user.posts.includes(:likes, :likers, :comments).order(created_at: :desc), items: 10)
   end
 
   def followers
     @user = User.includes(:followers).find_by(id: params[:id])
+    return redirect_to(root_path, alert: "User not found") unless @user
+
     @pagy, @followers = pagy(@user.followers, items: 10)
 
     respond_to do |format|
@@ -19,6 +23,8 @@ class UsersController < ApplicationController
 
   def following
     @user = User.includes(:following).find_by(id: params[:id])
+    return redirect_to(root_path, alert: "User not found") unless @user
+
     @pagy, @following = pagy(@user.following, items: 10)
 
     respond_to do |format|

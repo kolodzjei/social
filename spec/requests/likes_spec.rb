@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe("Likes", type: :request) do
@@ -17,15 +19,14 @@ RSpec.describe("Likes", type: :request) do
       context "and likeable exists" do
         let(:test_post) { create(:post, user: create(:user)) }
 
-
         it "likes the likeable" do
-          post like_path, params: { likeable_type: "Post", likeable_id: test_post.id }
+          post like_path, params: { likeable_type: test_post.class, likeable_id: test_post.id }
           expect(test_post.liked_by?(user)).to(be(true))
         end
 
         it "sends a notification" do
           expect_any_instance_of(LikeNotifier).to(receive(:notify))
-          post like_path, params: { likeable_type: "Post", likeable_id: test_post.id }
+          post like_path, params: { likeable_type: test_post.class, likeable_id: test_post.id }
         end
       end
 
@@ -57,7 +58,7 @@ RSpec.describe("Likes", type: :request) do
         context "and user has not liked the likeable" do
           it "doesn't change the like count" do
             expect do
-              delete like_path, params: { likeable_type: "Post", likeable_id: test_post.id }
+              delete(like_path, params: { likeable_type: test_post.class, likeable_id: test_post.id })
             end.to(change { test_post.likes.count }.by(0))
           end
         end
@@ -67,7 +68,7 @@ RSpec.describe("Likes", type: :request) do
 
           it "unlikes the likeable" do
             expect(test_post.liked_by?(user)).to(be(true))
-            delete like_path, params: { likeable_type: "Post", likeable_id: test_post.id }
+            delete like_path, params: { likeable_type: test_post.class, likeable_id: test_post.id }
             expect(test_post.liked_by?(user)).to(be(false))
           end
         end
