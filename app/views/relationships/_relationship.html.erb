@@ -5,11 +5,11 @@
         <%= turbo_frame_tag "followers" do %>
           <h3><%= user.followers.length %></h3>
         <% end %>
-        <p><%= link_to "Followers", followers_path(user) %></p>
+        <p><%= link_to "Followers", followers_user_path(user) %></p>
       </div>
       <div class="col text-center">
         <h3><%= user.following.length %></h3>
-        <p><%= link_to "Following", following_path(user) %> </p>
+        <p><%= link_to "Following", following_user_path(user) %> </p>
       </div>
     </div>
     <% unless current_user == user %>

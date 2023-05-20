@@ -13,9 +13,11 @@ Rails.application.routes.draw do
     get "settings", to: "devise/registrations#edit"
   end
 
-  get "users/:id", to: "users#show", as: "user"
-  get "users/:id/followers", to: "users#followers", as: "followers"
-  get "users/:id/following", to: "users#following", as: "following"
+  resources :users, only: [:show] do
+    member do
+      get :following, :followers
+    end
+  end
 
   resources :likes, only: [:create, :destroy]
   resources :posts, only: [:create, :destroy, :show]
