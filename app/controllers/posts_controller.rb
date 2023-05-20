@@ -5,6 +5,8 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.includes(:likes, :likers, :user).find_by(id: params[:id])
+    return redirect_to(root_path) unless @post
+
     @pagy, @comments = pagy(
       @post.comments.includes(:user, :likes, :likers, :replies).order(created_at: :desc),
       items: 10,
@@ -27,7 +29,7 @@ class PostsController < ApplicationController
 
   def destroy
     @post = Post.find_by(id: params[:id])
-    if @post.user == current_user
+    if @post&.user == current_user
       @post.destroy
       flash[:notice] = "Post deleted"
     else
