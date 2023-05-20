@@ -5,6 +5,8 @@ class CommentsController < ApplicationController
 
   def show
     @comment = Comment.includes(:likers, :likes, :replies, :post, :rich_text_content).find_by(id: params[:id])
+    return redirect_to(root_path) unless @comment
+
     @pagy, @replies = pagy(@comment.replies.not_reply.newest.includes(:user, :likers, :likes), items: 10)
     @reply = Reply.new
   end
@@ -24,13 +26,14 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment = Comment.find_by(id: params[:id])
-    if @comment.user == current_user
+    if @comment&.user == current_user
       @comment.destroy
       flash[:notice] = "Comment deleted"
+      redirect_to(post_path(@comment.post))
     else
       flash[:alert] = "Something went wrong"
+      redirect_to(root_path)
     end
-    redirect_to(post_path(@comment.post))
   end
 
   private

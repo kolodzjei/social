@@ -5,6 +5,8 @@ class RepliesController < ApplicationController
 
   def show
     @reply = Reply.includes(:user, :replies, :rich_text_content, :likes, :likers).find_by(id: params[:id])
+    return redirect_to(root_path) unless @reply
+
     @comment = @reply.comment
     @pagy, @replies = pagy(
       @reply.replies.includes(:rich_text_content, :likes, :likers, :replies, :user).newest,
@@ -27,7 +29,7 @@ class RepliesController < ApplicationController
 
   def destroy
     @reply = Reply.find_by(id: params[:id])
-    if @reply.user == current_user
+    if @reply&.user == current_user
       @reply.destroy
       flash[:success] = "Reply was successfully deleted."
     else
@@ -43,10 +45,14 @@ class RepliesController < ApplicationController
   end
 
   def redirect
-    if @reply.has_parent?
-      redirect_to(@reply.parent_reply)
+    if @reply
+      if @reply.has_parent?
+        redirect_to(@reply.parent_reply)
+      else
+        redirect_to(@reply.comment)
+      end
     else
-      redirect_to(@reply.comment)
+      redirect_to(root_path)
     end
   end
 

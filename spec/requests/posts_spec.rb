@@ -52,16 +52,18 @@ RSpec.describe("Posts", type: :request) do
       context("and post is valid") do
         it "creates a post" do
           expect do
-            post posts_path, params: { post: { content: "Hello, world!" } }
+            post(posts_path, params: { post: { content: "Hello, world!" } })
           end.to(change { Post.count }.by(1))
+          expect(response).to(redirect_to(root_path))
         end
       end
 
       context("and post is invalid") do
         it "does not create a post" do
           expect do
-            post posts_path, params: { post: { content: "" } }
+            post(posts_path, params: { post: { content: "" } })
           end.not_to(change { Post.count })
+          expect(response).to(redirect_to(root_path))
         end
       end
     end
@@ -88,11 +90,12 @@ RSpec.describe("Posts", type: :request) do
           it "deletes the post" do
             test_post
             expect do
-              delete post_path(test_post)
+              delete(post_path(test_post))
             end.to(change { Post.count }.by(-1))
+            expect(response).to(redirect_to(root_path))
           end
         end
-        
+
         context("and user is not the author of the post") do
           let(:other_user) { create(:user) }
           let(:test_post) { create(:post, user: other_user) }
@@ -100,8 +103,9 @@ RSpec.describe("Posts", type: :request) do
           it "does not delete the post" do
             test_post
             expect do
-              delete post_path(test_post)
+              delete(post_path(test_post))
             end.not_to(change { Post.count })
+            expect(response).to(redirect_to(root_path))
           end
         end
       end
