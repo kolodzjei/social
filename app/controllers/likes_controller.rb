@@ -18,7 +18,12 @@ class LikesController < ApplicationController
   private
 
   def find_likeable
-    @likeable = params[:likeable_type].classify.constantize.find_by(id: params[:likeable_id])
+    begin
+      @likeable = params[:likeable_type].classify.constantize.find_by(id: params[:likeable_id])
+    rescue NameError
+      flash[:alert] = "Unable to find #{params[:likeable_type]}"
+    end
+
     unless @likeable
       flash[:alert] = "Unable to find #{params[:likeable_type]} with id #{params[:likeable_id]}"
       redirect_to(root_path)
