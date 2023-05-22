@@ -28,7 +28,7 @@ module Comments
     end
 
     def send_notification
-      LikeNotifier.new(current_user, @comment).notify
+      Notifications::LikeNotifier.new(current_user, @comment).notify
     end
 
     def update_likes_form

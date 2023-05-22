@@ -28,7 +28,7 @@ module Replies
     end
 
     def send_notification
-      LikeNotifier.new(current_user, @reply).notify
+      Notifications::LikeNotifier.new(current_user, @reply).notify
     end
 
     def update_likes_form

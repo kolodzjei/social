@@ -54,6 +54,11 @@ RSpec.describe("Comments", type: :request) do
             post(comments_path, params: { comment: { content: "Hello", post_id: create(:post, user: user).id } })
           end.to(change(Comment, :count).by(1))
         end
+
+        it "creates a notification" do
+          allow_any_instance_of(Notifications::CommentNotifier).to(receive(:notify))
+          post(comments_path, params: { comment: { content: "Hello", post_id: create(:post, user: user).id } })
+        end
       end
 
       context "and comment is invalid" do

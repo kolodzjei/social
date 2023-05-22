@@ -45,6 +45,6 @@ class PostsController < ApplicationController
   end
 
   def send_notification
-    PostNotifier.new(current_user, @post).notify_followers
+    Notifications::PostNotifier.new(current_user, @post).notify_followers
   end
 end

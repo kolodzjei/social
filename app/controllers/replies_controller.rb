@@ -57,6 +57,6 @@ class RepliesController < ApplicationController
   end
 
   def send_notification
-    ReplyNotifier.new(current_user, @reply).notify
+    Notifications::ReplyNotifier.new(current_user, @reply).notify
   end
 end

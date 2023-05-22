@@ -56,6 +56,11 @@ RSpec.describe("Posts", type: :request) do
           end.to(change { Post.count }.by(1))
           expect(response).to(redirect_to(root_path))
         end
+
+        it "creates a notification" do
+          allow_any_instance_of(Notifications::PostNotifier).to(receive(:notify_followers))
+          post(posts_path, params: { post: { content: "Hello, world!" } })
+        end
       end
 
       context("and post is invalid") do

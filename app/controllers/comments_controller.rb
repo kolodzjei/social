@@ -43,6 +43,6 @@ class CommentsController < ApplicationController
   end
 
   def send_notification
-    CommentNotifier.new(current_user, @comment).notify
+    Notifications::CommentNotifier.new(current_user, @comment).notify
   end
 end

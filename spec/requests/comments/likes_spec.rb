@@ -36,7 +36,7 @@ RSpec.describe("Comments::Likes", type: :request) do
           end
 
           it "sends a notification" do
-            expect_any_instance_of(LikeNotifier).to(receive(:notify))
+            expect_any_instance_of(Notifications::LikeNotifier).to(receive(:notify))
             post(comment_likes_path(comment))
           end
         end

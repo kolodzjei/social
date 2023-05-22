@@ -32,6 +32,6 @@ class RelationshipsController < ApplicationController
   end
 
   def send_notification
-    FollowNotifier.new(current_user, @user).notify
+    Notifications::FollowNotifier.new(current_user, @user).notify
   end
 end

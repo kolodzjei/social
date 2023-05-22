@@ -24,8 +24,8 @@ RSpec.describe("Relationships", type: :request) do
           expect(user.following?(other_user)).to(be(true))
         end
 
-        it "sends a notification" do
-          expect_any_instance_of(FollowNotifier).to(receive(:notify))
+        it "creates a notification" do
+          expect_any_instance_of(Notifications::FollowNotifier).to(receive(:notify))
           post follow_path, params: { user_id: other_user.id }
         end
       end

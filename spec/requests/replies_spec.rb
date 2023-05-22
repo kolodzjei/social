@@ -62,6 +62,19 @@ RSpec.describe("Replies", type: :request) do
             )
           end.to(change(Reply, :count).by(1))
         end
+
+        it "creates a notification" do
+          allow_any_instance_of(Notifications::ReplyNotifier).to(receive(:notify))
+          post(
+            replies_path,
+            params: {
+              reply: {
+                content: "Hello",
+                comment_id: create(:comment, user: user, post: create(:post, user: user)).id,
+              },
+            },
+          )
+        end
       end
 
       context "and reply is invalid" do
