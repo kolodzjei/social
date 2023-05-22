@@ -34,7 +34,6 @@ Rails.application.routes.draw do
     delete "likes", to: "replies/likes#destroy"
   end
 
-  
   post "follow", to: "relationships#create", as: "follow"
   delete "unfollow", to: "relationships#destroy", as: "unfollow"
 end
