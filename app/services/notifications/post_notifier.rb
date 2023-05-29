@@ -7,7 +7,7 @@ module Notifications
       @post = post
     end
 
-    def notify_followers
+    def notify
       actor.followers.each do |follower|
         Notification.find_or_create_by(
           content: content,

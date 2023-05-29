@@ -43,6 +43,9 @@ class CommentsController < ApplicationController
   end
 
   def send_notification
-    Notifications::CommentNotifierJob.perform_async({ comment_id: @comment.id, actor_id: current_user.id }.stringify_keys)
+    Notifications::CommentNotifierJob.perform_async({
+      comment_id: @comment.id,
+      actor_id: current_user.id,
+    }.stringify_keys)
   end
 end

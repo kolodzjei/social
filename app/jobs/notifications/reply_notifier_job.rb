@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 module Notifications
-    class ReplyNotifierJob
-        include Sidekiq::Job
+  class ReplyNotifierJob
+    include Sidekiq::Job
 
-        def perform(args)
-            reply = Reply.find_by(id: args["reply_id"])
-            actor = User.find_by(id: args["actor_id"])
-            return unless reply && actor
+    def perform(args)
+      reply = Reply.find_by(id: args["reply_id"])
+      actor = User.find_by(id: args["actor_id"])
+      return unless reply && actor
 
-            ReplyNotifier.new(actor, reply).notify
-        end
+      ReplyNotifier.new(actor, reply).notify
     end
+  end
 end

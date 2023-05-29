@@ -58,7 +58,7 @@ RSpec.describe("Posts", type: :request) do
         end
 
         it "creates a notification" do
-          allow_any_instance_of(Notifications::PostNotifier).to(receive(:notify_followers))
+          allow_any_instance_of(Notifications::PostNotifier).to(receive(:notify))
           post(posts_path, params: { post: { content: "Hello, world!" } })
         end
       end
