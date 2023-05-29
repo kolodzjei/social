@@ -39,7 +39,7 @@ RSpec.describe("Replies::Likes", type: :request) do
           it "enqueues a job to send a notification" do
             expect do
               post(reply_likes_path(reply))
-            end.to change(Notifications::LikeNotifierJob.jobs, :size).by(1)
+            end.to(change(Notifications::LikeNotifierJob.jobs, :size).by(1))
           end
         end
       end

@@ -1,12 +1,13 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 
-RSpec.describe Notifications::ReplyNotifierJob, type: :job do
+RSpec.describe(Notifications::ReplyNotifierJob, type: :job) do
   describe "#perform" do
     let(:user) { create(:user) }
     let(:post) { create(:post, user: user) }
     let(:comment) { create(:comment, post: post, user: user) }
     let(:reply) { create(:reply, comment: comment, user: user) }
-
 
     context "when both reply and user exist" do
       it "calls ReplyNotifier#notify" do

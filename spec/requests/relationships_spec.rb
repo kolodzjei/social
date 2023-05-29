@@ -26,8 +26,8 @@ RSpec.describe("Relationships", type: :request) do
 
         it "enqueues a job to send a notification" do
           expect do
-            post follow_path, params: { user_id: other_user.id }
-          end.to change(Notifications::FollowNotifierJob.jobs, :size).by(1)
+            post(follow_path, params: { user_id: other_user.id })
+          end.to(change(Notifications::FollowNotifierJob.jobs, :size).by(1))
         end
       end
 
