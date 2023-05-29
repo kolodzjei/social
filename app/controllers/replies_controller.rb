@@ -57,6 +57,6 @@ class RepliesController < ApplicationController
   end
 
   def send_notification
-    Notifications::ReplyNotifier.new(current_user, @reply).notify
+    Notifications::ReplyNotifierJob.perform_async({ reply_id: @reply.id, actor_id: current_user.id }.stringify_keys)
   end
 end

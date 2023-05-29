@@ -45,6 +45,6 @@ class PostsController < ApplicationController
   end
 
   def send_notification
-    Notifications::PostNotifier.new(current_user, @post).notify_followers
+    Notifications::PostNotifierJob.perform_async({ post_id: @post.id, actor_id: current_user.id }.stringify_keys)
   end
 end

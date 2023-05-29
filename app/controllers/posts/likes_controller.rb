@@ -28,7 +28,7 @@ module Posts
     end
 
     def send_notification
-      Notifications::LikeNotifier.new(current_user, @post).notify
+      Notifications::LikeNotifierJob.perform_async({likeable_type: "Post", likeable_id: @post.id, user_id: current_user.id}.stringify_keys)
     end
 
     def update_likes_form

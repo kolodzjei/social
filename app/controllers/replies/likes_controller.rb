@@ -28,7 +28,7 @@ module Replies
     end
 
     def send_notification
-      Notifications::LikeNotifier.new(current_user, @reply).notify
+      Notifications::LikeNotifierJob.perform_async({likeable_type: "Reply", likeable_id: @reply.id, user_id: current_user.id}.stringify_keys)
     end
 
     def update_likes_form

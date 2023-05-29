@@ -28,7 +28,7 @@ module Comments
     end
 
     def send_notification
-      Notifications::LikeNotifier.new(current_user, @comment).notify
+      Notifications::LikeNotifierJob.perform_async({likeable_type: "Comment", likeable_id: @comment.id, user_id: current_user.id}.stringify_keys)
     end
 
     def update_likes_form

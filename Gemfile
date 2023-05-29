@@ -84,3 +84,5 @@ gem "image_processing"
 gem "active_storage_validations", "~> 1.0"
 
 gem "pg"
+
+gem "sidekiq", "~> 7.1"

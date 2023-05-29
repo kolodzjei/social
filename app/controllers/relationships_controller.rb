@@ -32,6 +32,6 @@ class RelationshipsController < ApplicationController
   end
 
   def send_notification
-    Notifications::FollowNotifier.new(current_user, @user).notify
+    Notifications::RelationshipNotifierJob.perform_async({ follower_id: current_user.id, followed_id: @user.id }.stringify_keys)
   end
 end
