@@ -34,9 +34,10 @@ RSpec.describe("Posts::Likes", type: :request) do
             end.to(change(test_post.likes, :count).by(1))
           end
 
-          it "sends a notification" do
-            expect_any_instance_of(Notifications::LikeNotifier).to(receive(:notify))
-            post(post_likes_path(test_post))
+          it "enqueues a job to send a notification" do
+            expect do
+              post(post_likes_path(test_post))
+            end.to change(Notifications::LikeNotifierJob.jobs, :size).by(1)
           end
         end
       end
