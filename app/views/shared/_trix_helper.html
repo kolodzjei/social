@@ -5,9 +5,17 @@
       const block_tools = document.querySelector(".trix-button-group--block-tools");
       const history_tools = document.querySelector(".trix-button-group--history-tools");
 
-      file_tools.remove();
-      block_tools.remove();
-      history_tools.remove();
+      if (file_tools !== null) {
+        file_tools.remove();
+      }
+
+      if (block_tools !== null) {
+        block_tools.remove();
+      }
+
+      if (history_tools !== null) {
+        history_tools.remove();
+      }
     })
     addEventListener("trix-file-accept", function(e) {
       e.preventDefault();
