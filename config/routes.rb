@@ -38,4 +38,6 @@ Rails.application.routes.draw do
   delete "unfollow", to: "relationships#destroy", as: "unfollow"
 
   resources :notifications, only: [:index]
+
+  resources :conversations, only: [:index, :show, :create]
 end

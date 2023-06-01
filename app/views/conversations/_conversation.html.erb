@@ -1,0 +1,15 @@
+<% presenter =  ConversationPresenter.new(conversation, current_user) %>
+
+  <div class="card my-3">
+    <div class="card-body">
+      <div class="d-flex align-items-center">
+        <%= image_tag presenter.user_avatar.variant(:thumb), class: "rounded-circle me-3", alt: "User Avatar" %>
+        <div>
+          <h5 class="card-title mb-0"><%= link_to display_name(presenter.user), user_path(presenter.user), style: "color:black; text-decoration:none" %></h5>
+          <%= link_to conversation_path(conversation), style:"text-decoration:none" do %>
+            <p class="card-text" style="color:rgba(0,0,0,0.65)"><%= truncate(presenter.last_message, limit: 20, omission: "...") %> <small class="text-muted"><%= time_ago_in_words(presenter.last_message_time) %> ago </small></p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>

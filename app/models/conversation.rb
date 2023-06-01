@@ -7,4 +7,12 @@ class Conversation < ApplicationRecord
 
   validates :sender_id, uniqueness: { scope: :recipient_id }
   validates :sender, :recipient, presence: true
+
+  scope :involving, ->(user) do
+    where("conversations.sender_id = ? OR conversations.recipient_id = ?", user.id, user.id)
+  end
+
+  scope :newest, -> { order(created_at: :desc) }
+
+  scope :not_empty, -> { joins(:messages).distinct }
 end
