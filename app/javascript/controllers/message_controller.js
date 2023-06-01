@@ -29,6 +29,14 @@ export default class extends Controller {
   handleSubmit(event){
     event.preventDefault();
     this.formTarget.submit();
-    this.messageInputTarget.value = "";
+
+    const observer = new MutationObserver(() => {
+      this.messageInputTarget.value = "";
+      observer.disconnect();
+    });
+
+    const config = { attributes: true, childList: true, subtree: true };
+
+    observer.observe(this.messagesTarget, config);
   }
 }
