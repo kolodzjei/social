@@ -9,7 +9,13 @@ class ConversationsController < ApplicationController
 
   def show
     @conversation = Conversation.find_by(id: params[:id])
-    @messages = @conversation.messages.includes(:user)
+
+    if current_user == @conversation.sender || current_user == @conversation.recipient
+      @messages = @conversation.messages.includes(:user)
+      @message = Message.new
+    else
+      redirect_to(root_path, alert: "You don't have permission to view this conversation.")
+    end
   end
 
   def create

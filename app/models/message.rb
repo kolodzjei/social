@@ -6,4 +6,6 @@ class Message < ApplicationRecord
 
   validates :user, :conversation, presence: true
   validates :content, presence: true, length: { maximum: 500 }
+
+  after_create_commit { broadcast_append_to "conversation-#{conversation.id}" }
 end
