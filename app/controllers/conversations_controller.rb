@@ -5,6 +5,8 @@ class ConversationsController < ApplicationController
 
   def index
     @conversations = Conversation.includes(:messages, :sender, :recipient).involving(current_user).newest.not_empty
+
+    @users = User.where.not(id: current_user.id)
   end
 
   def show
@@ -27,7 +29,7 @@ class ConversationsController < ApplicationController
     )
 
     if @conversation.save
-      redirect_to(conversation_messages_path(@conversation))
+      redirect_to(conversation_path(@conversation))
     else
       redirect_to(root_path, alert: @conversation.errors.full_messages.to_sentence)
     end
@@ -36,6 +38,8 @@ class ConversationsController < ApplicationController
   private
 
   def normalize_ids(id1, id2)
+    id1 = id1.to_i
+    id2 = id2.to_i
     if id1 < id2
       [id1, id2]
     else

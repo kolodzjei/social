@@ -41,5 +41,8 @@ Rails.application.routes.draw do
 
   resources :conversations, only: [:index, :show, :create] do
     resources :messages, only: [:create], module: :conversations
+    collection do
+      get "search", to: "conversations/search#index"
+    end
   end
 end

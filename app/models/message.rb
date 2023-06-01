@@ -8,4 +8,5 @@ class Message < ApplicationRecord
   validates :content, presence: true, length: { maximum: 500 }
 
   after_create_commit { broadcast_append_to "conversation-#{conversation.id}" }
+  after_create_commit { conversation.touch }
 end

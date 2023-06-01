@@ -12,7 +12,7 @@ class Conversation < ApplicationRecord
     where("conversations.sender_id = ? OR conversations.recipient_id = ?", user.id, user.id)
   end
 
-  scope :newest, -> { order(created_at: :desc) }
+  scope :newest, -> { order(updated_at: :desc) }
 
   scope :not_empty, -> { joins(:messages).distinct }
 end

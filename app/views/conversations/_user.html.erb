@@ -1,0 +1,13 @@
+<div class="card">
+  <div class="card-body">
+      <div class="d-flex align-items-center">
+        <%= image_tag user.avatar.variant(:thumb), class: "rounded-circle me-3", alt: "User Avatar" %>
+        <div>
+          <h5 class="card-title mb-0"><%= link_to display_name(user), user_path(user), style: "color:black; text-decoration:none; font-size: 16px" %></h5>
+          <%= link_to conversations_path(user_id: user.id), data: {"turbo-method": :post}, style:"text-decoration:none" do %>
+            <p class="card-text" style="color:rgba(0,0,105,0.65); font-size: 12px;">Start a conversation with <%= display_name(user) %></p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+</div>

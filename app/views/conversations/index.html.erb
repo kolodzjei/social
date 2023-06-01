@@ -1,7 +1,12 @@
 <div class="container">
   <div class="row">
     <div class="col-md-3 border-end">
+        <div class="m-4" data-controller='finduser'>
+          <%= text_field_tag :query,'', placeholder: 'Search for user', data: {action: 'input->finduser#search', target: 'finduser.params'}%>
+        </div>
+        <div id="users-results">
 
+        </div>
     </div>
     <div class="col-md-6 border-end">
       <h1>Conversations</h1>
