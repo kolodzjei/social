@@ -39,5 +39,7 @@ Rails.application.routes.draw do
 
   resources :notifications, only: [:index]
 
-  resources :conversations, only: [:index, :show, :create]
+  resources :conversations, only: [:index, :show, :create] do
+    resources :messages, only: [:create], module: :conversations
+  end
 end

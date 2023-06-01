@@ -25,6 +25,11 @@ class User < ApplicationRecord
 
   has_many :notifications, dependent: :destroy
 
+  has_many :messages, dependent: :destroy
+
+  has_many :sender_conversations, foreign_key: :sender_id, class_name: "Conversation", dependent: :destroy
+  has_many :recipient_conversations, foreign_key: :recipient_id, class_name: "Conversation", dependent: :destroy
+
   has_one_attached :avatar do |attachable|
     attachable.variant(:thumb, resize_and_pad: [50, 50])
     attachable.variant(:medium, resize_and_pad: [300, 300])
@@ -61,6 +66,10 @@ class User < ApplicationRecord
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20] # random password
     end
+  end
+
+  def conversations
+    sender_conversations.or(recipient_conversations)
   end
 
   private

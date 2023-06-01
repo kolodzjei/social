@@ -9,7 +9,7 @@ class ConversationsController < ApplicationController
 
   def show
     @conversation = Conversation.find_by(id: params[:id])
-    @messages = @conversation.messages
+    @messages = @conversation.messages.includes(:user)
   end
 
   def create

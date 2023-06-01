@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3 border-end">
+
+    </div>
+    <div class="col-md-6 border-end">
+      <div class="message-container">
+        <%= render @messages %>
+      </div>
+      <%= render 'messages/form', message: Message.new, conversation: @conversation %>
+    </div>
+    <div class="col-md-3">
+      <%= render 'shared/side_bar' %>
+    </div>
+  </div>
+</div>

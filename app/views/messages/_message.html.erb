@@ -1,0 +1,10 @@
+<div class="message border-bottom m-2">
+  <div class="d-flex align-items-start">
+    <%= image_tag message.user.avatar.variant(:thumb), class: "rounded-circle me-2" %>
+    <div>
+      <h5 class="message-title m-0"><%= display_name(message.user) %></h5>
+      <p class="message-subtitle text-muted"><small><%= time_ago_in_words(message.created_at) %> ago</small></p>
+      <p class="message-content"><%= message.content %></p>
+    </div>
+  </div>
+</div>
