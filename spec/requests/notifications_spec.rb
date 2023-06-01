@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 
-RSpec.describe "Notifications", type: :request do
+RSpec.describe("Notifications", type: :request) do
   describe "GET /notifications" do
     context "when user is not logged in" do
       it "redirects to login page" do
         get notifications_path
-        expect(response).to redirect_to(new_user_session_path)
+        expect(response).to(redirect_to(new_user_session_path))
       end
     end
 
@@ -16,7 +18,7 @@ RSpec.describe "Notifications", type: :request do
 
       it "returns http success" do
         get notifications_path
-        expect(response).to have_http_status(:success)
+        expect(response).to(have_http_status(:success))
       end
     end
   end
