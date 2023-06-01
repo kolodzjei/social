@@ -11,7 +11,7 @@ class ConversationsController < ApplicationController
     @conversation = Conversation.find_by(id: params[:id])
 
     if current_user == @conversation.sender || current_user == @conversation.recipient
-      @messages = @conversation.messages.includes(:user)
+      @messages = @conversation.messages.includes(:user).order(created_at: :asc)
       @message = Message.new
     else
       redirect_to(root_path, alert: "You don't have permission to view this conversation.")

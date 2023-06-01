@@ -6,6 +6,14 @@ export default class extends Controller {
   connect(){
     this.scrollDown();
 
+    this.messageInputTarget.addEventListener("change", () => {
+      if (this.messageInputTarget.value.length > 500) {
+        this.sendButtonTarget.disabled = true;
+      } else {
+        this.sendButtonTarget.disabled = false;
+      }
+    });
+
     const observer = new MutationObserver(() => {
       this.scrollDown();
     });
