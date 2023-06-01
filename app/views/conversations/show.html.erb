@@ -5,8 +5,8 @@
     <div class="col-md-3 border-end">
 
     </div>
-    <div class="col-md-6 border-end">
-      <div class="message-container">
+    <div class="col-md-6 border-end" data-controller="message">
+      <div class="message-container" data-message-target="messages">
         <%= turbo_frame_tag "messages" do %>
           <%= render @messages %>
         <% end %>

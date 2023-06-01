@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Conversations
   class MessagesController < ApplicationController
     before_action :authenticate_user!
@@ -14,8 +16,8 @@ module Conversations
       # end
     end
 
-    private 
-    
+    private
+
     def message_params
       params.require(:message).permit(:content)
     end
