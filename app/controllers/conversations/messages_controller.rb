@@ -6,6 +6,8 @@ module Conversations
 
     def create
       @conversation = current_user.conversations.find_by(id: params[:conversation_id])
+      return redirect_to(conversations_path, alert: "Conversation not found.") unless @conversation
+
       @message = @conversation.messages.build(message_params.merge(user: current_user))
       unless @message.save
         redirect_to(conversation_path(@conversation), alert: @message.errors.full_messages.to_sentence)

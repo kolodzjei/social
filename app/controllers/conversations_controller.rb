@@ -5,18 +5,18 @@ class ConversationsController < ApplicationController
 
   def index
     @conversations = Conversation.includes(:messages, :sender, :recipient).involving(current_user).newest.not_empty
-
-    @users = User.where.not(id: current_user.id)
   end
 
   def show
     @conversation = Conversation.find_by(id: params[:id])
 
+    return redirect_to(conversations_path, alert: "Conversation not found.") unless @conversation
+
     if current_user == @conversation.sender || current_user == @conversation.recipient
       @messages = @conversation.messages.includes(:user).order(created_at: :asc)
       @message = Message.new
     else
-      redirect_to(root_path, alert: "You don't have permission to view this conversation.")
+      redirect_to(conversations_path, alert: "You don't have permission to view this conversation.")
     end
   end
 
