@@ -3,7 +3,7 @@
 module Conversations
   class SearchController < ApplicationController
     before_action :authenticate_user!
-  
+
     def index
       @users = User.where("display_name LIKE ?", "%#{params[:search]}%")
 

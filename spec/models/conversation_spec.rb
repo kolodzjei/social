@@ -21,9 +21,9 @@ RSpec.describe(Conversation, type: :model) do
 
       context "when user is the sender" do
         let(:conversation) { create(:conversation, sender: user, recipient: other_user) }
-        
+
         it "returns conversations" do
-          expect(Conversation.involving(user)).to include(conversation)
+          expect(Conversation.involving(user)).to(include(conversation))
         end
       end
 
@@ -31,7 +31,7 @@ RSpec.describe(Conversation, type: :model) do
         let(:conversation) { create(:conversation, sender: other_user, recipient: user) }
 
         it "returns conversations where the user is the recipient" do
-          expect(Conversation.involving(user)).to include(conversation)
+          expect(Conversation.involving(user)).to(include(conversation))
         end
       end
 
@@ -39,23 +39,27 @@ RSpec.describe(Conversation, type: :model) do
         let(:conversation) { create(:conversation, sender: other_user, recipient: create(:user)) }
 
         it "does not return conversations" do
-          expect(Conversation.involving(user)).to_not include(conversation)
+          expect(Conversation.involving(user)).to_not(include(conversation))
         end
       end
     end
 
     describe ".newest" do
-      let!(:conversation1) { create(:conversation, sender: create(:user), recipient: create(:user), updated_at: 1.day.ago) }
-      let!(:conversation2) { create(:conversation, sender: create(:user), recipient: create(:user), updated_at: Time.now) }
+      let!(:conversation1) do
+        create(:conversation, sender: create(:user), recipient: create(:user), updated_at: 1.day.ago)
+      end
+      let!(:conversation2) do
+        create(:conversation, sender: create(:user), recipient: create(:user), updated_at: Time.now)
+      end
 
       it "returns conversations in descending order by updated_at" do
-        expect(Conversation.newest).to eq([conversation2, conversation1])
+        expect(Conversation.newest).to(eq([conversation2, conversation1]))
       end
     end
 
     describe ".not_empty" do
-      let (:user) { create(:user) }
-      let (:other_user) { create(:user) }
+      let(:user) { create(:user) }
+      let(:other_user) { create(:user) }
       let!(:conversation) { create(:conversation, sender: user, recipient: other_user) }
 
       context "when conversation has messages" do
@@ -64,13 +68,13 @@ RSpec.describe(Conversation, type: :model) do
         end
 
         it "returns conversations with messages" do
-          expect(Conversation.not_empty).to include(conversation)
+          expect(Conversation.not_empty).to(include(conversation))
         end
       end
 
       context "when conversation does not have messages" do
         it "does not return conversations" do
-          expect(Conversation.not_empty).to_not include(conversation)
+          expect(Conversation.not_empty).to_not(include(conversation))
         end
       end
     end

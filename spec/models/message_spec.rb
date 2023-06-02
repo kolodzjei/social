@@ -23,12 +23,12 @@ RSpec.describe(Message, type: :model) do
       let(:message) { build(:message, conversation: conversation, user: user) }
 
       it "broadcasts to the conversation" do
-        expect(message).to receive(:broadcast_append_to).with("conversation-#{conversation.id}")
+        expect(message).to(receive(:broadcast_append_to).with("conversation-#{conversation.id}"))
         message.save
       end
 
       it "updates the conversation's updated_at" do
-        expect { message.save }.to change { conversation.reload.updated_at }
+        expect { message.save }.to(change { conversation.reload.updated_at })
       end
     end
   end

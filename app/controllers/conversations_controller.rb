@@ -23,7 +23,10 @@ class ConversationsController < ApplicationController
   def create
     sender_id, recipient_id = normalize_ids(current_user.id, params[:user_id])
 
-    return redirect_to(conversations_path, alert: "You can't start a conversation with yourself.") if sender_id == recipient_id
+    return redirect_to(
+      conversations_path,
+      alert: "You can't start a conversation with yourself.",
+    ) if sender_id == recipient_id
 
     @conversation = Conversation.find_or_initialize_by(
       sender_id: sender_id,
