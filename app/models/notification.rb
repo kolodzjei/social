@@ -7,7 +7,7 @@ class Notification < ApplicationRecord
 
   validates :content, :user, :target, presence: true
 
-  scope :latest, -> { order(created_at: :desc) }
+  scope :latest, -> { order(updated_at: :desc) }
 
   def message
     "#{display_name(actor)} #{content}"

@@ -12,12 +12,21 @@ module Conversations
       unless @message.save
         redirect_to(conversation_path(@conversation), alert: @message.errors.full_messages.to_sentence)
       end
+
+      send_notification
     end
 
     private
 
     def message_params
       params.require(:message).permit(:content)
+    end
+
+    def send_notification
+      Notifications::MessageNotifierJob.perform_async({
+          conversation_id: @conversation.id,
+          actor_id: current_user.id,
+        }.stringify_keys)
     end
   end
 end
