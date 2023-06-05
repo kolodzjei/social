@@ -8,10 +8,10 @@
     <div class="col-md-6 border-end" data-controller="message">
       <div class="message-container" data-message-target="messages">
         <%= turbo_frame_tag "messages" do %>
-          <%= render @messages %>
+          <%= turbo_frame_tag "pagination", src: conversation_path(@conversation, format: :turbo_stream), loading: :lazy %>
         <% end %>
       </div>
-      <%= render 'messages/form', message: Message.new, conversation: @conversation %>
+      <%= render 'messages/form', message: @message, conversation: @conversation %>
     </div>
     <div class="col-md-3">
       <%= render 'shared/side_bar' %>

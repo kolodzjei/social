@@ -1,0 +1,9 @@
+<%= turbo_stream.prepend "messages" do %>
+  <%= render partial: "messages/message", collection: @messages %>
+<% end %>
+
+<% if @pagy.next.present? %>
+  <%= turbo_stream.prepend "messages" do %>
+    <%= turbo_frame_tag "pagination", src: conversation_path(@conversation, format: :turbo_stream, page: @pagy.next), loading: :lazy %>
+  <% end %>
+<% end %>
