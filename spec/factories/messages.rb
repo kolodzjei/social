@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :message do
-    content { "MyText" }
+    content { Faker::Lorem.sentence }
     user { nil }
     conversation { nil }
   end
