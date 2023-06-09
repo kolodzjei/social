@@ -1,4 +1,4 @@
-<div class="message border-bottom m-2" id="<%= dom_id(message)%>" >
+<div class="message border-bottom m-2" id="<%= dom_id(message)%>" data-controller="message">
   <div class="d-flex align-items-start">
     <%= image_tag message.user.avatar.variant(:thumb), class: "rounded-circle me-2" %>
     <div>
